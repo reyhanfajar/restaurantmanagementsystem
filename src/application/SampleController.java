@@ -15,34 +15,53 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.Food;
+import model.Order;
 
 public class SampleController implements Initializable {
+	private double yOffset = 0;
+    private double xOffset = 0;
+    
 	@FXML
     private Button btnAdmin;
 
     @FXML
     private GridPane foodContainer;
+    
+    @FXML
+    private Button checkOutButtonClicked;
 	 
 	private List<Food> foodsList;
+	private static List<Order> orderList;
+	private MyListener myListener;
+	
+	public static List<Order> getOrderList() {
+		return orderList;
+	}
 
+	public static void setOrderList(List<Order> paramOrderList) {
+		orderList = paramOrderList;
+	}
+	
+	/*
+	 * Load all products
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		foodsList = new ArrayList<>(foodList());
@@ -51,11 +70,12 @@ public class SampleController implements Initializable {
 		int row = 1;
 		
 		try { 
-			// load all items in the list to GridPane
+			// load all items in the list to GridPane for foods
 			for (Food food : foodsList) {
 				FXMLLoader fxmlLoader = new FXMLLoader();
 				fxmlLoader.setLocation(getClass().getResource("Card.fxml"));
 				VBox foodBox = fxmlLoader.load();
+				
 				CardController cardController = fxmlLoader.getController();
 				cardController.setData(food);
 				
@@ -72,14 +92,34 @@ public class SampleController implements Initializable {
 				else 
 					GridPane.setMargin(foodBox, new Insets(15, 5, 20, 20));
 			}
+			
+			myListener = new MyListener() {
+				@Override
+				public void onClickListener(application.Food food) {
+					// TODO Auto-generated method stub
+					
+				}
+			};
+			
+			// load all items in the list to GridPane for orders
+			/*
+			for (int i = 0; i < orderList.size(); i++) {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(getClass().getResource("OrderCard.fxml"));
+				VBox orderBox = fxmlLoader.load();
+				
+				OrderController orderController = fxmlLoader.getController();
+				orderController.setData(orderList.get(i), myListener);
+				
+				foodContainer.add(orderBox, 0, i);
+				GridPane.setMargin(orderBox, new Insets(10)); 
+			}
+			*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
 	}
 	
-	private double yOffset = 0;
-    private double xOffset = 0;
-    
     /*
      * Show login window
      */
@@ -116,6 +156,11 @@ public class SampleController implements Initializable {
 		}
 	}
 	
+	 @FXML
+	 void checkOutButtonClicked(ActionEvent event) {
+		 // do something
+	 }
+	 
 	private List<Food> foodList() {
 		/*
 		List<Food> tempList = new ArrayList<>();
@@ -135,6 +180,11 @@ public class SampleController implements Initializable {
 		
 		return foodsList;
 	}
+	
+	private List<Order> orderList() {
+		return null;
+	}
+	
 	
 	public Food[] readJsonData(String filepath)  {
 		Gson gson = new Gson();
@@ -175,6 +225,6 @@ public class SampleController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	
 }

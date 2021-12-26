@@ -1,5 +1,6 @@
 package model;
 
+
 //import dbjson.Serializable;
 
 //public class Food extends Serializable {

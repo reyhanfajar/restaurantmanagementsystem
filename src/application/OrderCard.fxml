@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="350.0" style="-fx-background-radius: 20;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.OrderController">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-radius: 10;" styleClass="white-background" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="39.0" prefWidth="300.0">
+               <children>
+                  <Label fx:id="labelFoodName" prefHeight="29.0" prefWidth="235.0" text="Pepperoni Pizza">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="labelAmount" layoutX="15.0" layoutY="15.0" prefHeight="37.0" prefWidth="129.0" text="x 3" textFill="#0ab234">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelRelativeTotal" alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="248.0" text="Rp 3000">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <Label fx:id="labelPrice" prefHeight="28.0" prefWidth="108.0" text="Rp 1000">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
