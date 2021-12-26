@@ -16,17 +16,24 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <right>
-      <VBox prefHeight="555.0" prefWidth="261.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="400.0" prefWidth="171.0" BorderPane.alignment="CENTER">
          <children>
             <TextField promptText="Insert Name">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <ListView fixedCellSize="2.0" prefHeight="257.0" prefWidth="161.0">
+            <TextArea prefHeight="0.0" prefWidth="171.0" text="Food Order">
+               <padding>
+                  <Insets bottom="-15.0" />
+               </padding>
+            </TextArea>
+            <ListView editable="true" fixedCellSize="2.0" prefHeight="200.0" prefWidth="200.0" />
+            <TextArea prefHeight="22.0" prefWidth="171.0" text="Total :" />
+            <Button id="CheckOutButton" fx:id="CheckOutButton" mnemonicParsing="false" onAction="#checkOutButtonClicked" text="Check Out">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin></ListView>
+                  <Insets left="50.0" top="20.0" />
+               </VBox.margin></Button>
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
