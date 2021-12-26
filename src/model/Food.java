@@ -10,7 +10,6 @@ public class Food {
 	private double foodPrice;
 	
 	public Food(int id, String imgSource, String foodName, double foodPrice) {
-		super();
 		this.id = id;
 		this.imgSource = imgSource;
 		this.foodName = foodName;

@@ -1,11 +1,11 @@
-package com.example.restaurantmanagementsystem.Model;
+package model;
 
 public class AdminAccount {
 
     private String userName;
     private String password;
 
-    public AdminAccount (String userName, String password) {
+    public AdminAccount(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
@@ -16,5 +16,5 @@ public class AdminAccount {
 
     public String getPassword() {
         return password;
-    }
+    } 
 }

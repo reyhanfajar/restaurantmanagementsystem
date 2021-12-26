@@ -15,15 +15,29 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Food;
 
 public class SampleController implements Initializable {
+	@FXML
+    private Button btnAdmin;
+
     @FXML
     private GridPane foodContainer;
 	 
@@ -36,7 +50,7 @@ public class SampleController implements Initializable {
 		int column = 0;
 		int row = 1;
 		
-		try {
+		try { 
 			// load all items in the list to GridPane
 			for (Food food : foodsList) {
 				FXMLLoader fxmlLoader = new FXMLLoader();
@@ -48,7 +62,7 @@ public class SampleController implements Initializable {
 				if (column == 4) {
 					column = 0;
 					++row;
-				}
+				} 
 				
 				System.out.println("(" + column + ", " + row + ")");
 				foodContainer.add(foodBox, column++, row);
@@ -60,9 +74,48 @@ public class SampleController implements Initializable {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} 
+	}
+	
+	private double yOffset = 0;
+    private double xOffset = 0;
+    
+    /*
+     * Show login window
+     */
+	@FXML
+	void btnAdminPressed(ActionEvent event) {
+		try {
+			Pane rootLogin = FXMLLoader.load(getClass().getResource("login-view.fxml"));
+	        Stage stage = new Stage(); 
+	        stage.initModality(Modality.APPLICATION_MODAL);
+	       
+	        
+	        rootLogin.setOnMousePressed(new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent mouseEvent) { 
+	                xOffset = mouseEvent.getSceneX();
+	                yOffset = mouseEvent.getSceneY();
+	            }
+	        });
+	       
+	        rootLogin.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent mouseEvent) {
+	                stage.setX(mouseEvent.getSceneX() - xOffset);
+	                stage.setY(mouseEvent.getSceneY() - yOffset);
+	            }
+	        });
+		    //stage.initStyle(StageStyle.DECORATED.UNDECORATED);
+	       
+	    	stage.setTitle("Login");
+	        stage.setScene(new Scene(rootLogin));
+	        stage.show(); 
+		} catch(Exception e) {
+			e.printStackTrace(); 
 		}
 	}
-
+	
 	private List<Food> foodList() {
 		/*
 		List<Food> tempList = new ArrayList<>();
