@@ -15,6 +15,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -175,6 +177,28 @@ public class SampleController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
+	//untuk mengelist food yang telah di add pembeli
+	private ObservableList<application.Food> orderedFood = FXCollections.observableArrayList();
+
+	//ambil data orderedfood
+	public ObservableList<application.Food> getOrderedFood() {
+		return orderedFood;
+	}
+
+	@FXML
+	private Button checkOutButtonClick;
+
+	@FXML
+	//ke method pembayaran bila Check Out di klik
+	public void checkOutButtonClick(){
+		//membuat tombol Check Out tidak bisa di klik bila order tidak ada isinya
+		//tapi karena masih error, jadi ku bikin invisible
+		//harusnya pake button.setDisable(true), cuma bingung gatau gimana pakenya
+		checkOutButtonClick.setVisible(false);
+		if(orderedFood != null){
+			checkOutButtonClick.setVisible(true); //kalau ada isinya jadi kelihatan tombolnya
+		}
+	}
 }
