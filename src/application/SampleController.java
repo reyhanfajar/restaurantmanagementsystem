@@ -78,10 +78,9 @@ public class SampleController implements Initializable {
 				else 
 					GridPane.setMargin(foodBox, new Insets(15, 5, 20, 20));
 			}
-			//ObservableList for controlling order list, but it's not working
+			//ObservableList for controlling order list, but still confused how to take data from grid pane
+			//Thus, it's not working
 			ObservableList listOrdered = FXCollections.observableArrayList(foodContainer);
-			Bounds position = foodContainer.getCellBounds(column, row);
-
 			listView = new ListView<>(listOrdered);
 
 		} catch (IOException e) {
@@ -197,7 +196,7 @@ public class SampleController implements Initializable {
 	//ke method pembayaran bila Check Out di klik
 	void checkOutButtonClick(ActionEvent event){
 		try{
-			checkOutButtonClick.setVisible(listView != null); //kalau ada isinya jadi kelihatan tombolnya
+			System.out.println("Check Out Clicked");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
