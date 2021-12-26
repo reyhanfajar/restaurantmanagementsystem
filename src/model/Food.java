@@ -1,9 +1,29 @@
 package model;
 
+//import dbjson.Serializable;
+
+//public class Food extends Serializable {
 public class Food {
+	private int id;
 	private String imgSource;
 	private String foodName;
-	private String foodPrice;
+	private double foodPrice;
+	
+	public Food(int id, String imgSource, String foodName, double foodPrice) {
+		super();
+		this.id = id;
+		this.imgSource = imgSource;
+		this.foodName = foodName;
+		this.foodPrice = foodPrice;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public String getImgSource() {
 		return imgSource;
@@ -21,12 +41,12 @@ public class Food {
 		this.foodName = foodName;
 	}
 	
-	public String getFoodPrice() {
+	public double getFoodPrice() {
 		return foodPrice;
 	}
 	
-	public void setFoodPrice(String foodPrice) {
+	public void setFoodPrice(double foodPrice) {
 		this.foodPrice = foodPrice;
 	}
-	
 }
+	

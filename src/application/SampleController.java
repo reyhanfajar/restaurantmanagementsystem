@@ -1,10 +1,19 @@
 package application;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,20 +39,24 @@ public class SampleController implements Initializable {
 		try {
 			// load all items in the list to GridPane
 			for (Food food : foodsList) {
-				//System.out.println(food.getImgSource());
 				FXMLLoader fxmlLoader = new FXMLLoader();
 				fxmlLoader.setLocation(getClass().getResource("Card.fxml"));
 				VBox foodBox = fxmlLoader.load();
 				CardController cardController = fxmlLoader.getController();
 				cardController.setData(food);
 				
-				if (column == 6) {
+				if (column == 4) {
 					column = 0;
 					++row;
 				}
 				
+				System.out.println("(" + column + ", " + row + ")");
 				foodContainer.add(foodBox, column++, row);
-				GridPane.setMargin(foodBox, new Insets(250, 20, 20, 20));
+				// top, right, bottom, left
+				if (row <= 2)
+					GridPane.setMargin(foodBox, new Insets(230, 5, 20, 20)); 
+				else 
+					GridPane.setMargin(foodBox, new Insets(15, 5, 20, 20));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -51,63 +64,64 @@ public class SampleController implements Initializable {
 	}
 
 	private List<Food> foodList() {
+		/*
+		List<Food> tempList = new ArrayList<>();
+		tempList.add(new Food(0, "/img/mashed_potatoes.png", "Mashed Potatoes", 30000));
+		tempList.add(new Food(1, "/img/cheese_burger.png", "Cheese Burger", 25000));
+		tempList.add(new Food(2, "/img/french_fries.png", "French Fries", 15000));
+		tempList.add(new Food(3, "/img/pepperoni_pizza.png", "Pepperoni Pizza", 115000));
+		tempList.add(new Food(3, "/img/ice_cream.png", "Ice Cream", 10000));
+		writeJsonData("food.json", tempList);
+		*/
+		
 		List<Food> foodsList = new ArrayList<>();
-		
-		Food food = new Food();
-		food.setFoodName("Frech Fries");
-		food.setFoodPrice("Rp 15000");
-		food.setImgSource("/img/french_fries.png");
-		foodsList.add(food);
-		
-		food = new Food();
-		food.setFoodName("Pepperoni Pizza");
-		food.setFoodPrice("Rp 99000");
-		food.setImgSource("/img/pepperoni_pizza.png");
-		foodsList.add(food);
-		
-		food = new Food();
-		food.setFoodName("Cheese Burger");
-		food.setFoodPrice("Rp 20000");
-		food.setImgSource("/img/cheese_burger.png");
-		foodsList.add(food);
-		
-		food = new Food();
-		food.setFoodName("Ice Cream");
-		food.setFoodPrice("Rp 10000");
-		food.setImgSource("/img/ice_cream.png");
-		foodsList.add(food);
-		
-		food = new Food();
-		food.setFoodName("Mashed Potatoes");
-		food.setFoodPrice("Rp 18500");
-		food.setImgSource("/img/mashed_potatoes.png");
-		foodsList.add(food);
-		
-		food = new Food();
-		food.setFoodName("Pepperoni Pizza");
-		food.setFoodPrice("Rp 99000");
-		food.setImgSource("/img/pepperoni_pizza.png");
-		foodsList.add(food);
-		
-		food = new Food();
-		food.setFoodName("Cheese Burger");
-		food.setFoodPrice("Rp 20000");
-		food.setImgSource("/img/cheese_burger.png");
-		foodsList.add(food);
-		
-		food = new Food();
-		food.setFoodName("Ice Cream");
-		food.setFoodPrice("Rp 10000");
-		food.setImgSource("/img/ice_cream.png");
-		foodsList.add(food);
-		
-		food = new Food();
-		food.setFoodName("Mashed Potatoes");
-		food.setFoodPrice("Rp 18500");
-		food.setImgSource("/img/mashed_potatoes.png");
-		foodsList.add(food);
-		
+		Food[] food = readJsonData("food.json");
+		for (int i = 0; i < food.length; i++) {
+			foodsList.add(food[i]);
+		}
 		
 		return foodsList;
 	}
+	
+	public Food[] readJsonData(String filepath)  {
+		Gson gson = new Gson();
+		JsonReader reader;
+		try {
+			reader = new JsonReader(new FileReader(filepath));
+			Food[] data = gson.fromJson(reader, Food[].class); 
+			return data;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/* doest't work
+	public void appendJsonData(String filepath, List<Food> adddedList) {
+		Gson gson = new Gson();
+		List<Food> foods = gson.fromJson("JSON STRING", new TypeToken<List<Food>>() {}.getType());
+		
+		for (int i = 0; i < foods.size(); i++) {
+			foods.add(adddedList.get(i));
+		}
+
+		try (Writer writer = new FileWriter(filepath, true)) {
+		    Gson gsonBuilder = new GsonBuilder().create();
+		    gsonBuilder.toJson(foods, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	*/
+	
+	public void writeJsonData(String filepath, List<Food> foodsList) {
+		try (Writer writer = new FileWriter(filepath)) {
+		    Gson gsonBuilder = new GsonBuilder().create();
+		    gsonBuilder.toJson(foodsList, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
