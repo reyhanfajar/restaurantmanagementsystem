@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
     <right>
         <VBox prefHeight="400.0" prefWidth="171.0" BorderPane.alignment="CENTER">
             <children>
@@ -33,7 +33,7 @@
                </padding>
             </TextArea>
                 <ListView editable="true" fixedCellSize="2.0" prefHeight="280.0" prefWidth="171.0" />
-                <Button id="CheckOutButton" fx:id="CheckOutButton" mnemonicParsing="false" onAction="#checkOutButtonclicked" text="Check Out">
+                <Button id="CheckOutButton" fx:id="CheckOutButton" mnemonicParsing="false" onAction="#checkOutButtonClick" text="Check Out">
                     <VBox.margin>
                         <Insets left="50.0" top="20.0" />
                     </VBox.margin></Button>
@@ -82,4 +82,3 @@
         </VBox>
     </center>
 </BorderPane>
-
