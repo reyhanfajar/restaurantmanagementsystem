@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.restaurantmanagementsystem.LoginController">
+   <left>
+      <AnchorPane prefHeight="500.0" prefWidth="334.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESTAURANT MANAGEMENT">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="500.0" prefWidth="365.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="usernameText" layoutX="108.0" layoutY="237.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
+            <PasswordField fx:id="passwordText" layoutX="108.0" layoutY="288.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
+            <Button fx:id="loginButton" layoutX="138.0" layoutY="349.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="36.0" prefWidth="89.0" style="-fx-background-color: #0598ff;" text="Login" textFill="WHITE" />
+            <Hyperlink layoutX="100.0" layoutY="439.0" text="Don't have account? Register!" />
+            <Text fill="#0598ff" layoutX="133.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <Hyperlink layoutX="144.0" layoutY="463.0" text="Admin Login" />
+            <Label fx:id="labelText" layoutX="82.0" layoutY="194.0" textFill="RED" />
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
