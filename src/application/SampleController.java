@@ -16,16 +16,19 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -68,15 +71,22 @@ public class SampleController implements Initializable {
 				
 				System.out.println("(" + column + ", " + row + ")");
 				foodContainer.add(foodBox, column++, row);
+
 				// top, right, bottom, left
 				if (row <= 2)
 					GridPane.setMargin(foodBox, new Insets(230, 5, 20, 20)); 
 				else 
 					GridPane.setMargin(foodBox, new Insets(15, 5, 20, 20));
 			}
+			//ObservableList for controlling order list, but it's not working
+			ObservableList listOrdered = FXCollections.observableArrayList(foodContainer);
+			Bounds position = foodContainer.getCellBounds(column, row);
+
+			listView = new ListView<>(listOrdered);
+
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 	
 	private double yOffset = 0;
@@ -91,7 +101,6 @@ public class SampleController implements Initializable {
 			Pane rootLogin = FXMLLoader.load(getClass().getResource("login-view.fxml"));
 	        Stage stage = new Stage(); 
 	        stage.initModality(Modality.APPLICATION_MODAL);
-	       
 	        
 	        rootLogin.setOnMousePressed(new EventHandler<MouseEvent>() {
 	            @Override
@@ -178,27 +187,23 @@ public class SampleController implements Initializable {
 		}
 	}
 
-
-	//untuk mengelist food yang telah di add pembeli
-	private ObservableList<Food> orderedFood = FXCollections.observableArrayList();
-
-	//ambil data orderedfood
-	public ObservableList<Food> getOrderedFood() {
-		return orderedFood;
-	}
+	@FXML
+	private ListView listView;
 
 	@FXML
 	private Button checkOutButtonClick;
 
 	@FXML
 	//ke method pembayaran bila Check Out di klik
-	public void checkOutButtonClick(){
-		//membuat tombol Check Out tidak bisa di klik bila order tidak ada isinya
-		//tapi karena masih error, jadi ku bikin invisible
-		//harusnya pake button.setDisable(true), cuma bingung gatau gimana pakenya
-		checkOutButtonClick.setVisible(false);
-		if(orderedFood != null){
-			checkOutButtonClick.setVisible(true); //kalau ada isinya jadi kelihatan tombolnya
+	void checkOutButtonClick(ActionEvent event){
+		try{
+			checkOutButtonClick.setVisible(listView != null); //kalau ada isinya jadi kelihatan tombolnya
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
+
+
+
+
