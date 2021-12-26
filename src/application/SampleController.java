@@ -180,10 +180,10 @@ public class SampleController implements Initializable {
 
 
 	//untuk mengelist food yang telah di add pembeli
-	private ObservableList<application.Food> orderedFood = FXCollections.observableArrayList();
+	private ObservableList<Food> orderedFood = FXCollections.observableArrayList();
 
 	//ambil data orderedfood
-	public ObservableList<application.Food> getOrderedFood() {
+	public ObservableList<Food> getOrderedFood() {
 		return orderedFood;
 	}
 
