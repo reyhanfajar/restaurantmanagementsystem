@@ -10,10 +10,10 @@ import java.awt.*;
 public class OrderController{
 
     //untuk mengelist food yang telah di add pembeli
-    private ObservableList<Food> orderedFood = FXCollections.observableArrayList();
+    private ObservableList<model.Food> orderedFood = FXCollections.observableArrayList();
 
     //ambil data orderedfood
-    public ObservableList<Food> getOrderedFood() {
+    public ObservableList<model.Food> getOrderedFood() {
         return orderedFood;
     }
 
@@ -32,3 +32,4 @@ public class OrderController{
         }
     }
 }
+
