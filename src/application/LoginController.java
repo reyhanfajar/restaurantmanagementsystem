@@ -10,14 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.AdminAccount;
 
 public class LoginController {
-	
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
     @FXML
     private TextField usernameText;
     
@@ -33,6 +30,16 @@ public class LoginController {
     //Input User
     String username;
     String password;
+    
+    private static Stage featureStage;
+    
+    public static Stage getFeatureStage() {
+		return featureStage;
+	}
+
+	public static void setFeatureStage(Stage featureStage) {
+		LoginController.featureStage = featureStage;
+	}
 
     @FXML
     protected void onLoginButtonClick() throws IOException {
@@ -46,10 +53,13 @@ public class LoginController {
         if (username.equals(adminAccount.getUserName()) && password.equals(adminAccount.getPassword())) {
             labelText.setVisible(false);
             // Change scene
-            root = FXMLLoader.load(getClass().getResource("Feature.fxml"));
-    		scene = new Scene(root);
-    		stage.setScene(scene);
-    		stage.show();
+            Main.getMainStage().close();
+			SampleController.getLoginStage().close();
+			
+            Pane root = FXMLLoader.load(getClass().getResource("Feature.fxml"));
+            featureStage = new Stage(); 
+            featureStage.setScene(new Scene(root));
+            featureStage.show();
             
         }
         // Jika input kosong
@@ -62,10 +72,5 @@ public class LoginController {
             labelText.setVisible(true);
             labelText.setText("Entered Information is Wrong, Try Again!");
         }
-        
-        
-        
-        
-        
     }
 }

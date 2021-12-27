@@ -7,15 +7,27 @@ import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
+	private static Stage mainStage;
+	
+	public static Stage getMainStage() {
+		return mainStage;
+	}
+
+	public static void setMainStage(Stage paramStage) {
+		mainStage = paramStage;
+	}
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			mainStage = primaryStage;
 			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("Sample.fxml"));
 			Scene scene = new Scene(root, 1200, 600);
 			
-			primaryStage.setTitle("Restaurant Management System");
-			primaryStage.setScene(scene);
-			primaryStage.show(); 
+			mainStage.setResizable(false);
+			mainStage.setTitle("Restaurant Management System");
+			mainStage.setScene(scene);
+			mainStage.show(); 
 		} catch(Exception e) {
 			e.printStackTrace(); 
 		}

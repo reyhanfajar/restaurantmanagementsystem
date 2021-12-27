@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.*;
@@ -29,11 +30,6 @@ import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 
 public class FeatureController {
-	
-	
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
 	@FXML
 	private TextField foodName;
 	@FXML
@@ -47,9 +43,8 @@ public class FeatureController {
 	private static String imageSource;
 	//apply new food
 	public void apply(ActionEvent e) {
-		
-			addJson();
-		}
+		addJson();
+	}
 
 	//attach image file
 	public void attach(ActionEvent e) {
@@ -58,10 +53,7 @@ public class FeatureController {
 		File selectedFile = fc.showOpenDialog(null);
 		
 		if(selectedFile != null) {
-			
-		
 				imageSource = "/img/"+selectedFile.getName();
-				
 			try {
 				InputStream stream = new FileInputStream(selectedFile.getAbsolutePath());
 				Image image = new Image(stream);
@@ -82,20 +74,16 @@ public class FeatureController {
 	}
 	//logout admin window
 	public void logout(ActionEvent e) throws IOException {
-		
 		//change scene
-		root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
+		LoginController.getFeatureStage().close();
 		
-		 /*
-		  root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
-		  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		  scene = new Scene(root);
-		  stage.setScene(scene);
-		  stage.show();
-		  */
+		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("Sample.fxml"));
+		Stage primaryStage = new Stage(); 
+		Scene scene = new Scene(root, 1200, 600);
+		
+		primaryStage.setTitle("Restaurant Management System");
+		primaryStage.setScene(scene);
+		primaryStage.show(); 
 	}
 	
 	public String getFoodName() { return foodName.getText().toString(); }

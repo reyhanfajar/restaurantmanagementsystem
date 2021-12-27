@@ -47,7 +47,17 @@ public class SampleController implements Initializable {
     private GridPane foodContainer;
 	 
 	private List<Food> foodsList;
+	
+	private static Stage loginStage;
+	
+	public static Stage getLoginStage() {
+		return loginStage;
+	}
 
+	public static void setLoginStage(Stage loginStage) {
+		SampleController.loginStage = loginStage;
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		foodsList = new ArrayList<>(foodList());
@@ -98,8 +108,8 @@ public class SampleController implements Initializable {
 	void btnAdminPressed(ActionEvent event) {
 		try {
 			Pane rootLogin = FXMLLoader.load(getClass().getResource("login-view.fxml"));
-	        Stage stage = new Stage(); 
-	        stage.initModality(Modality.APPLICATION_MODAL);
+	        loginStage = new Stage(); 
+	        loginStage.initModality(Modality.APPLICATION_MODAL);
 	        
 	        rootLogin.setOnMousePressed(new EventHandler<MouseEvent>() {
 	            @Override
@@ -112,15 +122,16 @@ public class SampleController implements Initializable {
 	        rootLogin.setOnMouseDragged(new EventHandler<MouseEvent>() {
 	            @Override
 	            public void handle(MouseEvent mouseEvent) {
-	                stage.setX(mouseEvent.getSceneX() - xOffset);
-	                stage.setY(mouseEvent.getSceneY() - yOffset);
+	            	loginStage.setX(mouseEvent.getSceneX() - xOffset);
+	            	loginStage.setY(mouseEvent.getSceneY() - yOffset);
 	            }
 	        });
 		    //stage.initStyle(StageStyle.DECORATED.UNDECORATED);
 	       
-	    	stage.setTitle("Login");
-	        stage.setScene(new Scene(rootLogin));
-	        stage.show(); 
+	        loginStage.setResizable(false);
+	        loginStage.setTitle("Login");
+	        loginStage.setScene(new Scene(rootLogin));
+	        loginStage.show(); 
 		} catch(Exception e) {
 			e.printStackTrace(); 
 		}
